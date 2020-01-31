@@ -1,3 +1,5 @@
+module.exports = function(app) {
+
 // GET method route
 app.get('/', function (req, res) {
     res.send('')
@@ -11,3 +13,4 @@ app.get('/stats', function (req, res) {
     res.send('')
 })
 
+}
