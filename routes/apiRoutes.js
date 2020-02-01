@@ -15,6 +15,17 @@ app.get("/api/workouts", (req, res) => {
     });
 });
 
+app.post("/api/workouts", ({body}, res) => {
+db.Workout.create(body)
+    .then(({_id}) => db.Library.findOneAndUpdate({}, { $push: { books: _id } }, { new: true }))
+    .then(dbLibrary => {
+    res.json(dbLibrary);
+    })
+    .catch(err => {
+    res.json(err);
+    });
+});
+
 // app.get("/books", (req, res) => {
 // db.Book.find({})
 //   .then(dbBook => {
