@@ -5,15 +5,15 @@ module.exports = function(app) {
 
 
 app.get("/api/workouts", (req, res) => {
-   db.Workout.find({})
-   .then(dbData => {
-       console.log(dbData);
-       res.json(dbData);
-   })
-   .catch(err => {
-       res.json(err)
-   });
- });
+    db.Workout.find({})
+    .then(dbData => {
+        console.log(dbData);
+        res.json(dbData);
+    })
+    .catch(err => {
+        res.json(err)
+    });
+});
 
 // app.get("/books", (req, res) => {
 // db.Book.find({})
