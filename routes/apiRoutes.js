@@ -5,13 +5,13 @@ module.exports = function(app) {
 
 // Read all documents from the database.
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, (err, data))
-    if (err)
-    {
-        res.send(err)
-    } else {
-        res.json(data)
-    }
+    db.Workout.find({})
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+            })
+            .catch(err => {
+            res.json(err);
+            });
 });
 
 // Create a Workout Document
@@ -55,18 +55,17 @@ app.update("/api/workouts/:id", (req, res) => {
 
 // Read the last 7 documents (Workouts) from the collection to be displayed in the "stats.html" page
  app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({}, (err, data) => {
-        if (err)
-        {
-            res.send(err);
-        } else {
-            res.json(data);
-        }
-    }).limit(7);
+        db.Workout.find({})
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  }).limit(7);
 });
 
 });
 
-});
 
 }
