@@ -5,7 +5,7 @@ module.exports = function(app) {
 
 // Read all documents from the database.
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, err, data)
+    db.Workout.find({}, (err, data))
     if (err)
     {
         res.send(err)
@@ -25,7 +25,7 @@ app.post("/api/workouts", (req, res) => {
     
 
 // Update (add) exercises to the workout document.
-app.post("/api/workouts/:id", (req, res) => {
+app.update("/api/workouts/:id", (req, res) => {
     db.Workout.update(
         {
             _id: mongojs.ObjectId(req.params.id)
