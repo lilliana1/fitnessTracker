@@ -23,16 +23,19 @@ app.post("/api/workouts", ({ body }, res) => {
     .catch(err => {
         res.json(err)
     })
+})
     
 // Update (add) exercises to the workout document.
-app.update("/api/workouts/:id", (req, res) => {
+app.put("/api/workouts/:id", (req, res) => {
+    console.log(req.params.id);
     db.Workout.update(
         {
-            _id: mongojs.ObjectId(req.params.id)
+            _id: req.params.id
         },
         {
-            $set:
-            {
+            $push:
+            { exercises: 
+                {
                 type: req.body.type,
                 name: req.body.name,
                 duration: req.body.duration,
@@ -40,32 +43,25 @@ app.update("/api/workouts/:id", (req, res) => {
                 reps: req.body.reps,
                 sets: req.body.sets,
                 distance: req.body.distance
+                }
             }
-        },
-        (err, data) =>
-        {
-            if (err)
-            {
-                res.send(err);
-            } else {
-                res.send(data);
-            }
-        }
-    );
+        })
+        .then(dbWorkout => {
+            res.json(dbWorkout)
+        })
+        .catch(err => {
+            res.json(err)
+        })
+})
 
 // Read the last 7 documents (Workouts) from the collection to be displayed in the "stats.html" page
 app.get("/api/workouts/range", (req, res) => {
-        db.Workout.find({})
+        db.Workout.find({}).limit(7)
         .then(dbWorkout => {
         res.json(dbWorkout);
         })
         .catch(err => {
         res.json(err);
         });
-}).limit(7);
 });
-
-});
-
-
 }
