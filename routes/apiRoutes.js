@@ -15,15 +15,15 @@ app.get("/api/workouts", (req, res) => {
 });
 
 // Create a Workout Document
-app.post("/api/workouts", (req, res) => {
-    db.Workout.create(req.body, (err, data))
-    if (err) {
-        res.send(err)
-    } else {
-        res.send(data)
-    }
+app.post("/api/workouts", ({ body }, res) => {
+    db.Workout.create(body)
+    .then(dbWorkout => {
+        res.json(dbWorkout)
+    })
+    .catch(err => {
+        res.json(err)
+    })
     
-
 // Update (add) exercises to the workout document.
 app.update("/api/workouts/:id", (req, res) => {
     db.Workout.update(
@@ -54,15 +54,15 @@ app.update("/api/workouts/:id", (req, res) => {
     );
 
 // Read the last 7 documents (Workouts) from the collection to be displayed in the "stats.html" page
- app.get("/api/workouts/range", (req, res) => {
+app.get("/api/workouts/range", (req, res) => {
         db.Workout.find({})
-      .then(dbWorkout => {
+        .then(dbWorkout => {
         res.json(dbWorkout);
-      })
-      .catch(err => {
+        })
+        .catch(err => {
         res.json(err);
-      });
-  }).limit(7);
+        });
+}).limit(7);
 });
 
 });
