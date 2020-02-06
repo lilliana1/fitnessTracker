@@ -3,6 +3,8 @@
 ## Introduction
 This Workout Tracker will track your every week workout for you!
 
+https://fitness-tracker-app-2020.herokuapp.com/
+
 ## User Story
 * As a user, I want to be able to view create and track daily workouts. 
 I want to be able to log multiple exercises in a workout on a given day. 
