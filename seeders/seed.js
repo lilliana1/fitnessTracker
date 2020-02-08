@@ -1,11 +1,10 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect("mongodb://<heroku_5smxqj75>:<rootroot2020>@ds041168.mlab.com:41168/heroku_5smxqj75", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
-
 let workoutSeed = [
   {
     day: new Date().setDate(new Date().getDate()-10),
